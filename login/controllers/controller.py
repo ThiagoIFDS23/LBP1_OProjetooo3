@@ -1,13 +1,39 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, session, render_template, redirect, url_for, request
 from models import model
 
-hello = Blueprint('mensagens', __name__)
+app = Blueprint('mensagens', __name__)
+app.secret_key = 'chave-secreta'
 
-@hello.route('/')
+@app.route('/')
 def index():
-    return render_template('index.html', mensagens=model.mensagens)
+    render_template('login.html')
 
-@hello.route('/add', methods=['POST'])
-def add_mensagem():
-    model.add_mensagem()
-    return render_template('index.html', mensagens=model.mensagens)
+@app.route('/bemvindo')
+def bemvindo():
+    render_template('index.html', nome=session['nome'])
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    nome = request.form['nome']
+    senha = request.form['senha']
+    acesso = False
+
+    if request.method == 'GET':
+        if not nome in session:
+            return render_template('login.html', acesso=acesso)
+        else:
+            return redirect(url_for('bemvindo'))
+        
+    if request.method == 'POST':
+        for i in model.usuarios:
+            if nome == i.nome and senha == i.senha:
+                session['nome'] = nome
+                session['senha'] = senha
+                return redirect(url_for('bemvindo'))
+        return render_template('login.html', acesso=acesso)
+        
+@app.route('/logout')
+def logout():
+    session.pop('nome', None)
+    session.pop('senha', None)
+    return redirect(url_for('index'))
