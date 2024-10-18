@@ -20,7 +20,7 @@
         <button type="submit">Enviar</button>
     </form>
 
-    {% if acesso %}
+    {% if not acesso %}
     <h2>Usuário ou senha incorretos</h2>
     {% endif %}
 </body>

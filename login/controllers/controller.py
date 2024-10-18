@@ -1,39 +1,36 @@
 from flask import Blueprint, session, render_template, redirect, url_for, request
 from models import model
 
-app = Blueprint('mensagens', __name__)
-app.secret_key = 'chave-secreta'
+msg = Blueprint('mensagens', __name__)
 
-@app.route('/')
+@msg.route('/')
 def index():
-    render_template('login.html')
+    return render_template('login.html')
 
-@app.route('/bemvindo')
+@msg.route('/bemvindo')
 def bemvindo():
-    render_template('index.html', nome=session['nome'])
+    return render_template('bemvindo.html', nome=session['nome'])
 
-@app.route('/login', methods=['POST', 'GET'])
+@msg.route('/login', methods=['POST', 'GET'])
 def login():
-    nome = request.form['nome']
-    senha = request.form['senha']
-    acesso = False
-
     if request.method == 'GET':
-        if not nome in session:
-            return render_template('login.html', acesso=acesso)
+        if not 'nome' in session:
+            return render_template('login.html', acesso=True)
         else:
-            return redirect(url_for('bemvindo'))
+            return redirect(url_for('mensagens.bemvindo'))
         
     if request.method == 'POST':
+        nome = request.form['nome']
+        senha = request.form['senha']
         for i in model.usuarios:
             if nome == i.nome and senha == i.senha:
                 session['nome'] = nome
                 session['senha'] = senha
-                return redirect(url_for('bemvindo'))
-        return render_template('login.html', acesso=acesso)
+                return redirect(url_for('mensagens.bemvindo'))
+        return render_template('login.html', acesso=False)
         
-@app.route('/logout')
+@msg.route('/logout')
 def logout():
     session.pop('nome', None)
     session.pop('senha', None)
-    return redirect(url_for('index'))
+    return redirect(url_for('mensagens.index'))
