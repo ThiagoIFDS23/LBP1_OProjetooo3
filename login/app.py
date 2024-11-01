@@ -1,9 +1,9 @@
 from flask import Flask, redirect, url_for, session, request
-from controllers import controller
+from controllers.controllerLogin import *
 
 app = Flask(__name__)
 app.secret_key = 'chave-secreta'
-app.register_blueprint(controller.msg)
+app.register_blueprint(msg)
 
 @app.before_request
 def inicio():
