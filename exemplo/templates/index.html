@@ -1,19 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
-    <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Exemplo</title>
 </head>
+
 <body>
-    <ol class="lista">
-        {% for mensagem in mensagens %}
-            <li>{{ mensagem }}</li>
+    <header>
+        <a href="/">
+            Exemplo
+        </a>
+        {% if request.path != "/login" %}
+        {% if session.get('id') %}
+        <form action="logout">
+            <button type="submit">Sair</button>
+        </form>
+        {% else %}
+        <form action="login">
+            <button type="submit">Login</button>
+        </form>
+        {% endif %}
+        {% endif %}
+    </header>
+    <div class="carrinho">
+        <h1>Carrinho</h1>
+        {% for id in Carrinho %}
+            {% for produto in Produtos %}
+                {% if produto.id == id %}
+                    <div class="produto">
+                        <p>{{produto.nome}}</p>
+                        <a type="button" href="?id={{produto.id}}">Remover</a>
+                        <p>R$ {{produto.preco}}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
         {% endfor %}
-    </ol>
-    <form action="/add" method="post">
-        <button type="submit" class="botao">Adicionar Mensagem</button>
-    </form>
+    </div>
+    <div class="produtos">
+        <h1>Produtos</h1>
+        {% for produto in Produtos %}
+        {% if produto.id not in carrinho %}
+        <div class="produto">
+            <p>{{produto.nome}}</p>
+            <a href="?id={{produto.id}}"> Adicionar ao Carrinho</a>
+            <p>R$ {{produto.preco}}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
 </body>
 </html>
