@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'styles.css')}}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+</head>
+<body>
+    <h1>Lista de Produtos - Produto {{ page }}</h1>
+        <ul>
+            {% for produto in range(produtos | length) %}
+                <li>
+                    {{ produtos[produto] }}
+                    <button id="botaoAbrir{{produto + 1}}">Ver Detalhes</button>
+                    <div id="detalhes">
+                        <b><p>Produto</p></b>
+                        <p>Aqui estão os detalhes do Produto!</p>
+                        <button id="botaoFechar{{produto + 1}}">Fechar</button>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="button">
+            {% if page == 1 %}
+                <p>Página {{ page }}</p>
+                <a href="/?page={{ page + 1 }}">Próxima Página</a>
+            {% elif page == 4 %}
+                <a href="/?page={{ page - 1 }}">Página Anterior</a>
+                <p>Página {{ page }}</p>
+            {% else %}
+                <a href="/?page={{ page - 1 }}">Página Anterior</a>
+                <p>Página {{ page }}</p>
+                <a href="/?page={{ page + 1 }}">Próxima Página</a>
+            {% endif %}
+        </div>
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+</body>
+</html>
