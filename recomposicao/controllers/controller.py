@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 from models import model
 
-hello = Blueprint('mensagens', __name__)
+produto = Blueprint('produto', __name__)
 
-@hello.route('/')
+@produto.route('/')
 def index():
     page = request.args.get('page', default=1, type=int)
     produtos = []
