@@ -1,31 +1,15 @@
-const botaoAbrir1 = document.getElementById('botaoAbrir1');
-const botaoAbrir2 = document.getElementById('botaoAbrir2');
-const botaoAbrir3 = document.getElementById('botaoAbrir3');
-const botaoFechar1 = document.getElementById('botaoFechar1');
-const botaoFechar2 = document.getElementById('botaoFechar2');
-const botaoFechar3 = document.getElementById('botaoFechar3');
+const nome = document.getElementById('nome');
+const preco = document.getElementById('preco');
 const detalhes = document.getElementById('detalhes');
+const fundo = document.getElementById('fundo');
 
-botaoAbrir1.addEventListener('click', () => {
-    detalhes.style.display = 'block';
-});
-
-botaoAbrir2.addEventListener('click', () => {
-    detalhes.style.display = 'block';
-});
-
-botaoAbrir3.addEventListener('click', () => {
-    detalhes.style.display = 'block';
-});
-
-botaoFechar1.addEventListener('click', () => {
-    detalhes.style.display = 'none';
-});
-
-botaoFechar2.addEventListener('click', () => {
-    detalhes.style.display = 'none';
-});
-
-botaoFechar3.addEventListener('click', () => {
-    detalhes.style.display = 'none';
-});
+function verDetalhes(nome, preco) {
+    document.getElementById("nome").innerText = nome;
+    document.getElementById("preco").innerText = preco;
+    detalhes.style.display = "block";
+    fundo.style.display = "block";
+}
+function fecharDetalhes() {
+    document.getElementById("detalhes").style.display = "none";
+    fundo.style.display = "none";
+}

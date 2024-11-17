@@ -22,4 +22,4 @@ def index():
     if page == 4:
         produtos.append(model.produtos[9])
 
-    return render_template("index.html", produtos=produtos, page=page, id=0)
+    return render_template("index.html", produtos=produtos, page=page)
