@@ -13,12 +13,6 @@ def bemvindo():
 
 @msg.route('/login', methods=['POST', 'GET'])
 def login():
-    if request.method == 'GET':
-        if not 'nome' in session:
-            return render_template('login.html', acesso=True)
-        else:
-            return redirect(url_for('mensagens.bemvindo'))
-        
     if request.method == 'POST':
         nome = request.form['nome']
         senha = request.form['senha']
@@ -28,6 +22,12 @@ def login():
                 session['senha'] = senha
                 return redirect(url_for('mensagens.bemvindo'))
         return render_template('login.html', acesso=False)
+        
+    if request.method == 'GET':
+        if not 'nome' in session:
+            return render_template('login.html', acesso=True)
+        else:
+            return redirect(url_for('mensagens.bemvindo'))
         
 @msg.route('/logout')
 def logout():

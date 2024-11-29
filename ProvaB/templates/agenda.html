@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de Tarefas</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
+</head>
+<body>
+    <h1>Agenda de Tarefas</h1>
+    {% if session.get('tarefas') %}    
+        <ol class="lista-ol">
+            {% for tarefa in session.get('tarefas') %}
+                <li>
+                    Tarefa {{ tarefa.id }} até {{ tarefa.vencimento }}
+                </li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+    Total de Tarefas: {{ total }}   
+    <a href="/">Página Principal</a>
+</body>
+</html>

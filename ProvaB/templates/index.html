@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
+</head>
+<body>
+    <h1>Lista de Tarefas</h1>
+    {% if session.get('tarefas') %}
+        <ol class="lista-ol">
+            {% for tarefa in session.get('tarefas') %}
+                <li>Tarefa {{ tarefa.id }}</li>
+                <ul class="lista-ul">
+                    <li>Título: {{ tarefa.titulo }}</li>
+                    <li>Descrição: {{ tarefa.descricao }}</li>
+                    <li>Data de Vencimento: {{ tarefa.vencimento }}</li>
+                </ul>
+            {% endfor %}
+        </ol>
+    {% endif %}
+    Total de Tarefas: {{ total }}
+    <form method="post">
+        <label for="titulo">Título da Tarefa</label>
+        <input type="text" name="titulo">
+         
+        <label for="desc">Descrição da Tarefa</label>
+        <input type="text" name="descricao">
+
+        <label for="data">Data de Vencimento da Tarefa</label>
+        <input type="date" name="vencimento">
+        
+        <button type="submit" class="botao">Adicionar Tarefa</button>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <h2>{{ message }}</h2>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <a href="/agenda">Agenda</a>
+    <a href="/deslogar">Logout</a>
+</body>
+</html>
