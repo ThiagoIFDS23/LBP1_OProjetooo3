@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viagens</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
+</head>
+<body>
+    <h1>Cadastro de Viagens</h1>
+    <form method="post">
+        <label for="destino">Destino:</label>
+        <input type="text" name="destino">
+
+        <label for="data">Data:</label>
+        <input type="date" name="data"> 
+
+        <label for="descricao">Descrição:</label>
+        <input type="text" name="descricao">
+        
+        <label for="nota">Nota:</label>
+        <input type="number" name="nota" max="5" min="1" value="5">
+
+        <button type="submit" class="botao">Adicionar Viagem</button>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <h2>{{ message }}</h2>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <a href="/lista">Lista de Tarefas</a>
+    <a href="/deslogar">Excluir Tarefas</a>
+</body>
+</html>

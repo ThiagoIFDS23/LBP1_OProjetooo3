@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de Tarefas</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
+</head>
+<body>
+    <h1>Lista de Viagens</h1>  
+        <ol class="lista-ol">
+            <ol class="lista-ol">
+                {% for viagem in session.get('viagens') %}
+                    <li>Tarefa {{ viagem.id }}</li>
+                    <ul class="lista-ul">
+                        <li>Título: {{ viagem.destino }}</li>
+                        <li>Descrição: {{ viagem.data }}</li>
+                        <li>Data: {{ viagem.descricao }}</li>
+                        <li>Nota: {{ viagem.nota }}</li>
+                    </ul>
+                {% endfor %}
+            </ol>
+            Total de Tarefas: {{ total }}
+        </ol>
+    <a href="/">Cadastrar</a>
+</body>
+</html>

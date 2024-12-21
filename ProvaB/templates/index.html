@@ -8,7 +8,6 @@
 </head>
 <body>
     <h1>Lista de Tarefas</h1>
-    {% if session.get('tarefas') %}
         <ol class="lista-ol">
             {% for tarefa in session.get('tarefas') %}
                 <li>Tarefa {{ tarefa.id }}</li>
@@ -19,7 +18,6 @@
                 </ul>
             {% endfor %}
         </ol>
-    {% endif %}
     Total de Tarefas: {{ total }}
     <form method="post">
         <label for="titulo">Título da Tarefa</label>

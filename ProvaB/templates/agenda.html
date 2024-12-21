@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
 </head>
 <body>
-    <h1>Agenda de Tarefas</h1>
-    {% if session.get('tarefas') %}    
+    <h1>Agenda de Tarefas</h1>  
         <ol class="lista-ol">
             {% for tarefa in session.get('tarefas') %}
                 <li>
@@ -16,7 +15,6 @@
                 </li>
             {% endfor %}
         </ol>
-    {% endif %}
     Total de Tarefas: {{ total }}   
     <a href="/">Página Principal</a>
 </body>
